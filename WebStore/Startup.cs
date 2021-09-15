@@ -18,7 +18,7 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,11 +32,16 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
                 {
-                    endpoints.MapGet("/", async context =>
+                    endpoints.MapGet("/helloWorld", async context =>
                     {
                         await context.Response.WriteAsync("Hello World!");
                     });
+
+                    endpoints.MapControllerRoute(
+                        "default",
+                        "{controller=Home}/{action=Index}/{id?}");
                 });
         }
     }
+
 }
