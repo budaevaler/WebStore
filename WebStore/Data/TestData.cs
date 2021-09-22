@@ -11,8 +11,8 @@ namespace WebStore.Data
         public static List<Employee> Employees => new List<Employee>()
         {
             new Employee {Id=1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 27},
-            new Employee {Id=1, LastName = "Петров", FirstName = "Петр", Patronymic = "Петрович", Age = 31},
-            new Employee {Id=1, LastName = "Иванова", FirstName = "Мария", Patronymic = "Ивановна", Age = 23},
+            new Employee {Id=2, LastName = "Петров", FirstName = "Петр", Patronymic = "Петрович", Age = 31},
+            new Employee {Id=3, LastName = "Иванова", FirstName = "Мария", Patronymic = "Ивановна", Age = 23},
         };
     }
 }

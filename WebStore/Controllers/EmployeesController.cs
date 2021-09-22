@@ -21,5 +21,14 @@ namespace WebStore.Controllers
         {
             return View(_employees);
         }
+
+        public IActionResult Details(int id)
+        {
+            var employee = _employees.SingleOrDefault(e => e.Id == id);
+            if (employee is null)
+                return NotFound();
+
+            return View(employee);
+        }
     }
 }
