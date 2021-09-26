@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructura.Conventions;
 using WebStore.Infrastructura.Middleware;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 namespace WebStore
 {
@@ -20,6 +22,7 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
             services.AddControllersWithViews(opt=>opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
         }
