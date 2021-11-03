@@ -30,7 +30,7 @@ namespace WebStore.Components
 
             foreach (var parentSection in parentSectionsViews)
             {
-                var children = sections.Where(s => s.Id == parentSection.Id);
+                var children = sections.Where(s => s.ParentId == parentSection.Id);
                 foreach (var child in children)
                 {
                     parentSection.ChildSections.Add(new SectionViewModel
@@ -47,7 +47,7 @@ namespace WebStore.Components
 
             parentSectionsViews.Sort((a,b)=>Comparer<int>.Default.Compare(a.Order,b.Order));
 
-            return View();
+            return View(parentSectionsViews);
         }
     }
 }
