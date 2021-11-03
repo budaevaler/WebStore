@@ -13,7 +13,7 @@ namespace WebStore.Controllers
         {
             return View();
         }
-      
+
         public IActionResult NotFound404() => View();
         public IActionResult Cart() => View();
         public IActionResult CheckOut() => View();

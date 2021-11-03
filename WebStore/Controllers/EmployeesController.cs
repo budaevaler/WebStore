@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -41,7 +42,7 @@ namespace WebStore.Controllers
             return View(employee);
         }
 
-        public IActionResult Create() => View("Edit", new EmployeeViewModel() );
+        public IActionResult Create() => View("Edit", new EmployeeViewModel());
 
         #region Edit
 
@@ -67,6 +68,13 @@ namespace WebStore.Controllers
         [HttpPost] //фильтр действия, перехват вызова формы с html-страницы
         public IActionResult Edit(EmployeeViewModel model)
         {
+            //Здесь тоже можно проводить валидацию
+            if (!Regex.IsMatch(model.Name, @"([А-ЯЁ][а-яё]+)|([A-Z][a-z]+)"))
+                ModelState.AddModelError("","Имя должно начинаться с большой буквы");
+
+            //Валидация происходит в момент сопостовления входных данных из запроса с классом EmloyeeViewModel
+            if (!ModelState.IsValid) return View(model);
+
             var employee = new Employee
             {
                 Id = model.Id,
@@ -81,6 +89,7 @@ namespace WebStore.Controllers
             {
                 _employeesData.Update(employee);
             }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -112,7 +121,5 @@ namespace WebStore.Controllers
         }
 
         #endregion
-
-
     }
 }
