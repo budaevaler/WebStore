@@ -36,6 +36,7 @@ namespace WebStore
                 app.UseBrowserLink();
             }
 
+            app.UseStatusCodePagesWithRedirects("~/Home/Status/{0}");
             app.UseStaticFiles();
             app.UseRouting();
 
