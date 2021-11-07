@@ -11,6 +11,7 @@ using WebStore.Infrastructura.Conventions;
 using WebStore.Infrastructura.Middleware;
 using WebStore.Services;
 using WebStore.Services.InMemory;
+using WebStore.Services.InSQL;
 using WebStore.Services.Interfaces;
 
 namespace WebStore
@@ -29,10 +30,11 @@ namespace WebStore
             services.AddDbContext<WebStoreDB>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
-            services.AddTransient<WebStoreDbInitializer>();
+            services.AddTransient<WebStoreDbInitializer>(); // объект не хранит никакого сотояния
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>(); // на каждое входное подключение будет создаваться один объект SqlProductData 
+            //services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddControllersWithViews(opt=>opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
         }

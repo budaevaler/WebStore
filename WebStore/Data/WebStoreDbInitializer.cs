@@ -36,6 +36,11 @@ namespace WebStore.Data
 
         private async Task InitializeProductAsync()
         {
+            if (_db.Sections.Any())
+            {
+                _logger.LogInformation("Инициализация БД не нужна");
+                return;
+            }
             _logger.LogInformation("Запись секций..");
             using (_db.Database.BeginTransactionAsync())
             {
