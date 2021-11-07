@@ -6,16 +6,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using WebStore.Data;
 
 namespace WebStore
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            host.Run();
+           
 
+            using (var scope = host.Services.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<WebStoreDbInitializer>();
+                await initializer.InitializeAsync();
+            }
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
